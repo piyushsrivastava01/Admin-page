@@ -1,0 +1,9 @@
+<div class="flex items-center gap-3">
+  <div
+    class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-700 overflow-hidden"
+  >
+    <img *ngIf="src" [src]="src" class="w-full h-full object-cover" />
+    <span *ngIf="!src">{{ initials }}</span>
+  </div>
+  <ng-content></ng-content>
+</div>

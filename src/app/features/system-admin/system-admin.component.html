@@ -1,0 +1,82 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900">System Administration</h1>
+      <p class="text-slate-500 text-sm mt-1">Manage users, roles, and system settings</p>
+    </div>
+    <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-xs text-emerald-700">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+      System Online
+    </div>
+  </div>
+
+  <!-- Stats cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <app-stats-card
+      title="Total Users"
+      value="26"
+      subtitle="Across all roles"
+      icon="👥"
+      accentClass="bg-sky-100 text-sky-600"
+    ></app-stats-card>
+
+    <app-stats-card
+      title="Active Sessions"
+      value="47"
+      subtitle="Currently online"
+      icon="📈"
+      accentClass="bg-emerald-100 text-emerald-600"
+    ></app-stats-card>
+
+    <app-stats-card
+      title="System Uptime"
+      value="99.98%"
+      subtitle="Last 30 days"
+      icon="📟"
+      accentClass="bg-violet-100 text-violet-600"
+    ></app-stats-card>
+
+    <app-stats-card
+      title="Storage Used"
+      value="68%"
+      subtitle="Usage this month"
+      icon="📦"
+      accentClass="bg-amber-100 text-amber-600"
+    ></app-stats-card>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-slate-200 flex gap-2 text-sm">
+    <a
+      routerLink="users"
+      routerLinkActive="bg-white shadow-sm"
+      class="px-4 py-2 rounded-t-xl bg-slate-100 text-slate-600 hover:bg-slate-200"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >User Management</a
+    >
+    <a
+      routerLink="roles"
+      routerLinkActive="bg-white shadow-sm"
+      class="px-4 py-2 rounded-t-xl bg-slate-100 text-slate-600 hover:bg-slate-200"
+      >Role Assignment</a
+    >
+    <a
+      routerLink="logs"
+      routerLinkActive="bg-white shadow-sm"
+      class="px-4 py-2 rounded-t-xl bg-slate-100 text-slate-600 hover:bg-slate-200"
+      >System Logs</a
+    >
+    <a
+      routerLink="settings"
+      routerLinkActive="bg-white shadow-sm"
+      class="px-4 py-2 rounded-t-xl bg-slate-100 text-slate-600 hover:bg-slate-200"
+      >Settings</a
+    >
+  </div>
+
+  <!-- Tab content -->
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+    <router-outlet></router-outlet>
+  </div>
+</div>

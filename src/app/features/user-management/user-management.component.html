@@ -1,0 +1,96 @@
+<div class="space-y-5">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div>
+      <h2 class="text-lg font-semibold text-slate-900">User Management</h2>
+      <p class="text-xs text-slate-500 mt-1">Manage all system users</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <select
+        [(ngModel)]="roleFilter"
+        (change)="applyFilters()"
+        class="px-3 py-2 border border-slate-200 rounded-xl text-xs bg-white"
+      >
+        <option value="All">All Roles</option>
+        <option value="Admin">Admin</option>
+        <option value="HR">HR</option>
+        <option value="Facilitator">Facilitator</option>
+        <option value="Trainee">Trainee</option>
+        <option value="Manager">Manager</option>
+      </select>
+      <button
+        class="px-4 py-2 rounded-xl bg-sky-600 text-white text-xs font-semibold hover:bg-sky-700"
+      >
+        + Add User
+      </button>
+    </div>
+  </div>
+
+  <div class="relative">
+    <input
+      [(ngModel)]="search"
+      (input)="applyFilters()"
+      class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-sky-500/20"
+      placeholder="Search users..."
+    />
+    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
+  </div>
+
+  <div class="border border-slate-100 rounded-2xl overflow-hidden">
+    <table class="min-w-full text-xs">
+      <thead class="bg-slate-50">
+        <tr>
+          <th class="px-4 py-3 text-left text-slate-500 font-semibold">User</th>
+          <th class="px-4 py-3 text-left text-slate-500 font-semibold">Role</th>
+          <th class="px-4 py-3 text-left text-slate-500 font-semibold">Status</th>
+          <th class="px-4 py-3 text-left text-slate-500 font-semibold">Last Login</th>
+          <th class="px-4 py-3 text-right text-slate-500 font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of filtered" class="border-t border-slate-100 hover:bg-slate-50/70">
+          <td class="px-4 py-3">
+            <app-user-avatar [name]="u.name">
+              <div class="flex flex-col">
+                <span class="text-sm font-medium text-slate-900">{{ u.name }}</span>
+                <span class="text-[11px] text-slate-500">{{ u.email }}</span>
+              </div>
+            </app-user-avatar>
+          </td>
+          <td class="px-4 py-3">
+            <app-status-badge
+              [label]="u.role"
+              [color]="u.role === 'Admin' ? 'red' : u.role === 'HR' ? 'violet' : 'green'"
+            ></app-status-badge>
+          </td>
+          <td class="px-4 py-3">
+            <label class="inline-flex items-center gap-2 text-[11px] text-slate-600">
+              <input type="checkbox" [checked]="u.status === 'Active'" class="hidden" />
+              <span
+                class="w-9 h-5 rounded-full bg-slate-200 flex items-center px-[3px]"
+                [class.bg-sky-500]="u.status === 'Active'"
+              >
+                <span
+                  class="w-4 h-4 rounded-full bg-white shadow transition-transform"
+                  [class.translate-x-4]="u.status === 'Active'"
+                ></span>
+              </span>
+              <span>{{ u.status }}</span>
+            </label>
+          </td>
+          <td class="px-4 py-3 text-slate-500">{{ u.lastLogin }}</td>
+          <td class="px-4 py-3 text-right">
+            <button class="text-xs text-slate-500 mr-3">✏️</button>
+            <button class="text-xs text-slate-500 mr-3">🔑</button>
+            <button (click)="deleteUser(u)" class="text-xs text-rose-500">🗑</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="filtered.length === 0">
+          <td colspan="5" class="px-4 py-6 text-center text-slate-400">
+            No users match your filters.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
